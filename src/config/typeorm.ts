@@ -7,6 +7,9 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: 'postgres',
   password: 'postgres',
   database: 'noxtracking',
-  entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  entities:
+    process.env.NODE_ENV === 'development'
+      ? [__dirname + '/../**/*.entity.{js,ts}']
+      : [__dirname + '/dist/**/*.entity.js'],
   synchronize: true,
 };
