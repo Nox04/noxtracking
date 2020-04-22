@@ -20,8 +20,9 @@ export class AuthController {
 
   @Get('protected')
   @UseGuards(AuthGuard('jwt'))
-  protectedResource()
+  protectedResource(@Req() req)
   {
+    console.log(req.user);
     return 'JWT is working!';
   }
 }
