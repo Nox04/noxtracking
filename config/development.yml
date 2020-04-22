@@ -1,0 +1,11 @@
+server:
+  frontURL: 'http://localhost:4200'
+  backURL: 'http://localhost:3000'
+db:
+  host: 'localhost'
+  username: 'postgres'
+  password: 'postgres'
+  synchronize: true
+
+jwt:
+  secret: 'topSecret51'

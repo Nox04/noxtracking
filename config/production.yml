@@ -1,0 +1,11 @@
+server:
+  frontURL: 'https://noxtracking.com'
+  backURL: 'https://noxtracking.xyz'
+db:
+  host: 'db'
+  username: 'postgres'
+  password: 'postgres'
+  synchronize: true
+
+jwt:
+  secret: '32dq48pxj834kF3*'

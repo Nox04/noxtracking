@@ -2,6 +2,8 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
 import { UserService } from '../user/user.service';
 import { AuthProvider } from '../common/enums';
+import * as config from 'config';
+const jwtConfig = config.get('jwt');
 
 @Injectable()
 export class AuthService {
@@ -23,7 +25,7 @@ export class AuthService {
         user = await this.userService.registerOAuthUser(rawJson, provider);
 
       return sign({ id: user.id }, this.JWT_SECRET_KEY, {
-        expiresIn: 3600,
+        expiresIn: jwtConfig.expiresIn,
       });
     } catch (err) {
       throw new InternalServerErrorException('validateOAuthLogin', err.message);

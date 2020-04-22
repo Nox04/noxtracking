@@ -2,6 +2,9 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 
+import * as config from 'config';
+const serverConfig = config.get('server');
+
 @Controller('auth')
 export class AuthController {
 
@@ -18,8 +21,8 @@ export class AuthController {
   googleLoginCallback(@Req() req, @Res() res) {
     // handles the Google OAuth2 callback
     const jwt: string = req.user.jwt;
-    if (jwt) res.redirect('http://localhost:4200/login/success?token=' + jwt);
-    else res.redirect('http://localhost:4200/login/failure');
+    if (jwt) res.redirect(`${serverConfig.frontURL}/login/success?token=${jwt}`);
+    else res.redirect(`${serverConfig.frontURL}/login/failure`);
   }
 
   @Get('protected')

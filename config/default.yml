@@ -1,0 +1,13 @@
+server:
+  port: 3000
+  GOOGLE_CLIENT_ID: '57356067908-pcdekg5p0tva5ij1l3ki8okoujlmmcsc.apps.googleusercontent.com'
+  GOOGLE_CLIENT_SECRET: '3Ko-x1qRATbu3sCNUbXlajld'
+
+db:
+  type: 'postgres'
+  port: 5432
+  database: noxtracking
+
+jwt:
+  expiresIn: 3600
+
