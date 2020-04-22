@@ -10,6 +10,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   entities:
     process.env.NODE_ENV === 'development'
       ? [__dirname + '/../**/*.entity.{js,ts}']
-      : [__dirname + '/dist/**/*.entity.js'],
+      : ['/app/dist/**/*.entity.{js,ts}'],
   synchronize: true,
 };
