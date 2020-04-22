@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: noxtracking
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+  api:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      TYPEORM_CONNECTION: 'postgres'
+      TYPEORM_HOST: 'db'
+      TYPEORM_PORT: '5432'
+      TYPEORM_DATABASE: 'noxtracking'
+      TYPEORM_USERNAME: 'postgres'
+      TYPEORM_PASSWORD: 'postgres'
+      TYPEORM_SYNCHRONIZE: 'true'
+      TYPEORM_ENTITIES: 'api/**/entity/*.js'
+    depends_on:
+      - db
+    restart: always
