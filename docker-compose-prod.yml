@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: noxtracking
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+  api:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    restart: always
+volumes:
+  db_data:
