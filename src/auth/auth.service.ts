@@ -7,7 +7,7 @@ const jwtConfig = config.get('jwt');
 
 @Injectable()
 export class AuthService {
-  private readonly JWT_SECRET_KEY = 'HELLO_HELLO'; // <- replace this with your secret key
+  private readonly JWT_SECRET_KEY = jwtConfig.secret; // <- replace this with your secret key
 
   constructor(private readonly userService: UserService) {}
 

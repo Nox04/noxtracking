@@ -25,7 +25,7 @@ export class AuthController {
     else res.redirect(`${serverConfig.frontURL}/login/failure`);
   }
 
-  @Get('protected')
+  @Get('me')
   @UseGuards(AuthGuard('jwt'))
   protectedResource(@Req() req)
   {
