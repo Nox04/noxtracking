@@ -8,7 +8,7 @@ async function bootstrap() {
     app.enableCors();
   } else {
     app.enableCors({
-      origin: '*.noxtracking.com/*',
+      origin: '*.noxtracking.com',
     });
   }
 
