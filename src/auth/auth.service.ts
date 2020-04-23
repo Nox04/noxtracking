@@ -3,11 +3,14 @@ import { sign } from 'jsonwebtoken';
 import { UserService } from '../user/user.service';
 import { AuthProvider } from '../common/enums';
 import * as config from 'config';
+import { User } from '../user/user.entity';
+
 const jwtConfig = config.get('jwt');
+const serverConfig = config.get('server');
 
 @Injectable()
 export class AuthService {
-  private readonly JWT_SECRET_KEY = jwtConfig.secret; // <- replace this with your secret key
+  private readonly JWT_SECRET_KEY = jwtConfig.secret;
 
   constructor(private readonly userService: UserService) {}
 
@@ -16,7 +19,7 @@ export class AuthService {
     provider: AuthProvider,
   ): Promise<string> {
     try {
-      let user = await this.userService.findOneByThirdPartyId(
+      let user: User = await this.userService.findOneByThirdPartyId(
         rawJson.sub,
         provider,
       );
@@ -38,5 +41,11 @@ export class AuthService {
     } catch (err) {
       throw new InternalServerErrorException('getUserFromToken', err.message);
     }
+  }
+
+  getRedirectionUrl(token: string): string {
+    return token
+      ? `${serverConfig.frontURL}/login/success?token=${token}`
+      : `${serverConfig.frontURL}/login/failure`;
   }
 }

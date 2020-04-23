@@ -4,16 +4,15 @@ import { Strategy } from 'passport-google-oauth20';
 import { AuthService } from './auth.service';
 import { AuthProvider } from '../common/enums';
 import * as config from 'config';
+
 const serverConfig = config.get('server');
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor(
-    private readonly authService: AuthService
-  ) {
+  constructor(private readonly authService: AuthService) {
     super({
-      clientID: serverConfig.GOOGLE_CLIENT_ID, // <- Replace this with your client id
-      clientSecret: serverConfig.GOOGLE_CLIENT_SECRET, // <- Replace this with your client secret
+      clientID: serverConfig.GOOGLE_CLIENT_ID,
+      clientSecret: serverConfig.GOOGLE_CLIENT_SECRET,
       callbackURL: `${serverConfig.backURL}/auth/google/callback`,
       passReqToCallback: true,
       scope: ['profile', 'email'],
@@ -28,15 +27,16 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     done: Function,
   ) {
     try {
-
-      const jwt: string = await this.authService.validateOAuthLogin(profile._json, AuthProvider.GOOGLE);
+      const jwt: string = await this.authService.validateOAuthLogin(
+        profile._json,
+        AuthProvider.GOOGLE,
+      );
       const user = {
         jwt,
       };
 
       done(null, user);
     } catch (err) {
-      // console.log(err)
       done(err, false);
     }
   }

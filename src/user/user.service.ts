@@ -11,10 +11,6 @@ export class UserService {
     private usersRepository: UserRepository,
   ) {}
 
-  findAll(): Promise<User[]> {
-    return this.usersRepository.find();
-  }
-
   findOne(id: string): Promise<User> {
     return this.usersRepository.findOne(id);
   }
