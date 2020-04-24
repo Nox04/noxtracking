@@ -8,29 +8,29 @@ import { AuthProvider } from '../common/enums';
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: UserRepository,
+    private userRepository: UserRepository,
   ) {}
 
   findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+    return this.userRepository.find();
   }
 
   findOne(id: string): Promise<User> {
-    return this.usersRepository.findOne(id);
+    return this.userRepository.findOne(id);
   }
 
   findOneByThirdPartyId(
     thirdPartyId: string,
     authProvider: AuthProvider,
   ): Promise<User> {
-    return this.usersRepository.findOne({
+    return this.userRepository.findOne({
       thirdPartyId,
       authProvider,
     });
   }
 
   registerOAuthUser(raw: any, authProvider: AuthProvider): Promise<User> {
-    return this.usersRepository.save({
+    return this.userRepository.save({
       thirdPartyId: raw.sub,
       email: raw.email,
       picture: raw.picture,
