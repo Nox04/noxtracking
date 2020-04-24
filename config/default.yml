@@ -9,5 +9,5 @@ db:
   database: noxtracking
 
 jwt:
-  expiresIn: 3600
+  expiresIn: '9999 years'
 
