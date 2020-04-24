@@ -15,4 +15,11 @@ export class CollectionService {
       relations: ['pieces', 'collections', 'collections.pieces'],
     });
   }
+
+  findBySlug(slug: string): Promise<Collection> {
+    return this.collectionRepository.findOne({
+      where: { slug },
+      relations: ['pieces', 'collections', 'collections.pieces'],
+    });
+  }
 }

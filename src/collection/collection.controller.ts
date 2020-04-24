@@ -1,4 +1,10 @@
-import { ClassSerializerInterceptor, Controller, Get, UseInterceptors } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Param,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CollectionService } from './collection.service';
 import { Collection } from './collection.entity';
 
@@ -10,5 +16,11 @@ export class CollectionController {
   @Get()
   getCollections(): Promise<Collection[]> {
     return this.collectionService.findAll();
+  }
+  @Get('/slug/:slug')
+  getCollectionBySlug(
+    @Param('slug') id: string,
+  ): Promise<Collection> {
+    return this.collectionService.findBySlug(id);
   }
 }
