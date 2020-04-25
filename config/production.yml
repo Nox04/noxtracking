@@ -4,7 +4,7 @@ server:
 db:
   host: 'db'
   username: 'postgres'
-  password: 'postgres'
+  password: 'tppydk732dq4'
   synchronize: true
 
 jwt:
