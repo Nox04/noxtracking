@@ -8,7 +8,7 @@ export class PieceController {
   constructor(private readonly pieceService: PieceService) {}
 
   @Get('/slug/:slug')
-  getCollectionBySlug(
+  getPieceBySlug(
     @Param('slug') id: string,
   ): Promise<Piece> {
     return this.pieceService.findBySlug(id);
