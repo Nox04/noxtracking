@@ -24,7 +24,10 @@ export class Piece extends BaseEntity {
   @Column({ nullable: false })
   minutes: number;
 
-  @ManyToMany(type => Collection)
+  @ManyToMany(
+    type => Collection,
+    collection => collection.pieces,
+  )
   @JoinTable()
   collections: Collection[];
 }

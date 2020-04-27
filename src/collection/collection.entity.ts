@@ -31,7 +31,7 @@ export class Collection extends BaseEntity {
   @Expose()
   get minutes(): number {
     let minutes = 0;
-    this.pieces.forEach(piece => (minutes += piece.minutes));
+    this.pieces?.forEach(piece => (minutes += piece.minutes));
     this.collections?.forEach(collection => (minutes += collection.minutes));
     return minutes;
   }
@@ -39,7 +39,7 @@ export class Collection extends BaseEntity {
   @Expose()
   get booksCount(): number {
     let booksCount = 0;
-    this.pieces.forEach(piece => {
+    this.pieces?.forEach(piece => {
       if (piece.type === PieceType.BOOK) booksCount++;
     });
     this.collections?.forEach(collection => {
@@ -51,7 +51,7 @@ export class Collection extends BaseEntity {
   @Expose()
   get moviesCount(): number {
     let moviesCount = 0;
-    this.pieces.forEach(piece => {
+    this.pieces?.forEach(piece => {
       if (piece.type === PieceType.MOVIE) moviesCount++;
     });
     this.collections?.forEach(collection => {
