@@ -2,7 +2,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
-  Param,
+  Param, Req,
   UseInterceptors,
 } from '@nestjs/common';
 import { CollectionService } from './collection.service';
@@ -14,7 +14,10 @@ export class CollectionController {
   constructor(private readonly collectionService: CollectionService) {}
 
   @Get()
-  getCollections(): Promise<Collection[]> {
+  getCollections(
+    @Req() req
+  ): Promise<Collection[]> {
+    console.log(req.get('origin'));
     return this.collectionService.findAll();
   }
   @Get('/slug/:slug')
