@@ -12,7 +12,8 @@ export class PieceService {
 
   findBySlug(slug: string): Promise<Piece> {
     return this.pieceRepository.findOne({
-      where: { slug }
+      where: { slug },
+      relations: ['collections'],
     });
   }
 }
