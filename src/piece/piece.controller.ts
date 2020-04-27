@@ -1,4 +1,17 @@
-import { Controller } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import { PieceService } from './piece.service';
+import { Piece } from './piece.entity';
 
 @Controller('piece')
-export class PieceController {}
+@UseInterceptors(ClassSerializerInterceptor)
+export class PieceController {
+  constructor(private readonly pieceService: PieceService) {}
+
+  @Get('/slug/:slug')
+  getCollectionBySlug(
+    @Param('slug') id: string,
+  ): Promise<Piece> {
+    return this.pieceService.findBySlug(id);
+  }
+
+}
