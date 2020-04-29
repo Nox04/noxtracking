@@ -15,6 +15,9 @@ export class Collection extends BaseEntity {
   @Column({ nullable: false })
   slug: string;
 
+  @Column({ nullable: true })
+  description: string;
+
   @ManyToMany(
     type => Piece,
     piece => piece.collections,

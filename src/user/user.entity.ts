@@ -1,10 +1,11 @@
 import {
   Entity,
-  Column,
+  Column, OneToMany,
 } from 'typeorm';
 import { BaseEntity } from '../common/base-entity';
 import { AuthProvider } from '../common/enums';
 import { Exclude } from 'class-transformer';
+import { UserToPiece } from '../common/mtm-entities/user-to-piece.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -29,5 +30,11 @@ export class User extends BaseEntity {
     default: AuthProvider.GOOGLE,
   })
   authProvider: string;
+
+  @OneToMany(
+    type => UserToPiece,
+    userToPiece => userToPiece.user,
+  )
+  userToPieces: UserToPiece[];
 
 }

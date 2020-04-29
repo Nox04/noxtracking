@@ -16,7 +16,9 @@ export class UserService {
   }
 
   findOne(id: string): Promise<User> {
-    return this.userRepository.findOne(id);
+    return this.userRepository.findOne(id, {
+      relations: ['userToPieces'],
+    });
   }
 
   findOneByThirdPartyId(
