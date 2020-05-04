@@ -32,12 +32,12 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
-  @Get('/:userId/collection-status/:collectionId')
+  @Get('/:userId/collection-status/:collectionSlug')
   getCollectionStatus(
     @Param('userId', ParseUUIDPipe) userId: string,
-    @Param('collectionId', ParseUUIDPipe) collectionId: string,
+    @Param('collectionSlug') collectionSlug: string,
   ): Promise<User> {
-    return this.userService.getCollectionStatus(userId, collectionId);
+    return this.userService.getCollectionStatus(userId, collectionSlug);
   }
 
   @Post('/save-progress')

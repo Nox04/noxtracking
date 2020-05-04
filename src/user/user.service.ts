@@ -30,10 +30,10 @@ export class UserService {
 
   async getCollectionStatus(
     userId: string,
-    collectionId: string,
+    collectionSlug: string,
   ): Promise<User> {
-    const collection: Collection = await this.collectionService.findById(
-      collectionId,
+    const collection: Collection = await this.collectionService.findBySlug(
+      collectionSlug,
     );
     const groupIds = getPiecesIdsFromCollection(collection);
 
