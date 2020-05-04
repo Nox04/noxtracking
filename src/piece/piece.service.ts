@@ -16,4 +16,8 @@ export class PieceService {
       relations: ['collections', 'userToPieces'],
     });
   }
+
+  findById(id: string): Promise<Piece> {
+    return this.pieceRepository.findOne(id);
+  }
 }

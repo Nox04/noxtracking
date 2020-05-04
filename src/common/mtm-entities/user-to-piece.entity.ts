@@ -32,11 +32,11 @@ export class UserToPiece extends BaseEntity {
     type => User,
     user => user.userToPieces,
   )
-  user!: User;
+  user: User;
 
   @ManyToOne(
     type => Piece,
     piece => piece.userToPieces,
   )
-  piece!: Piece;
+  piece: Piece;
 }
