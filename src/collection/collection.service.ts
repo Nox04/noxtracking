@@ -22,4 +22,10 @@ export class CollectionService {
       relations: ['pieces', 'collections', 'collections.pieces'],
     });
   }
+
+  findById(id: string): Promise<Collection> {
+    return this.collectionRepository.findOne(id, {
+      relations: ['pieces', 'collections', 'collections.pieces'],
+    });
+  }
 }
