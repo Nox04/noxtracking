@@ -1,6 +1,4 @@
 import {
-  IsNotEmpty,
-  IsUUID,
   IsOptional,
   IsIn,
   IsDateString,
@@ -27,8 +25,4 @@ export class SaveProgressDto {
     ProgressStatus.IN_PROGRESS,
   ])
   status: ProgressStatus;
-
-  @IsNotEmpty()
-  @IsUUID('4')
-  pieceId: string;
 }
