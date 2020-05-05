@@ -12,7 +12,7 @@ export class UserToPiece extends BaseEntity {
   @Column()
   pieceId!: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'float' })
   rating?: number;
 
   @Column({ nullable: true })
