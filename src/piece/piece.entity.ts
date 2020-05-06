@@ -29,6 +29,9 @@ export class Piece extends BaseEntity {
   @Column({ nullable: false })
   minutes: number;
 
+  @Column({ nullable: true })
+  year: number;
+
   @Expose()
   get rating(): number {
     let rating = 0;
