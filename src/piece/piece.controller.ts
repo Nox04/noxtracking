@@ -3,7 +3,8 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
-  Param, ParseUUIDPipe,
+  Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   UseGuards,
@@ -28,6 +29,15 @@ export class PieceController {
     return this.pieceService.findBySlug(slug);
   }
 
+  @Get('/piece-status/:pieceSlug')
+  @UseGuards(AuthGuard('jwt'))
+  getPieceStatus(
+    @GetUserId() userId: string,
+    @Param('pieceSlug') pieceSlug: string,
+  ): Promise<Piece> {
+    return this.pieceService.getPieceStatus(userId, pieceSlug);
+  }
+
   @Patch('/:pieceId/rate')
   @UseGuards(AuthGuard('jwt'))
   @UsePipes(ValidationPipe)
@@ -47,6 +57,10 @@ export class PieceController {
     @Body() saveProgressDto: SaveProgressDto,
     @Param('pieceId', ParseUUIDPipe) pieceId: string,
   ): Promise<boolean> {
-    return this.pieceService.saveProgressOnPiece(saveProgressDto, pieceId, userId);
+    return this.pieceService.saveProgressOnPiece(
+      saveProgressDto,
+      pieceId,
+      userId,
+    );
   }
 }

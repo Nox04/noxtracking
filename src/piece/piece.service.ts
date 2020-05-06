@@ -15,12 +15,21 @@ export class PieceService {
   findBySlug(slug: string): Promise<Piece> {
     return this.pieceRepository.findOne({
       where: { slug },
-      relations: ['collections', 'userToPieces'],
+      relations: ['collections', 'userToPieces', 'userToPieces.user'],
     });
   }
 
-  findById(id: string): Promise<Piece> {
-    return this.pieceRepository.findOne(id);
+  async getPieceStatus(userId: string, pieceSlug: string): Promise<Piece> {
+    return await this.pieceRepository
+      .createQueryBuilder('piece')
+      .where('piece.slug = :slug', { slug: pieceSlug })
+      .leftJoinAndSelect(
+        'piece.userToPieces',
+        'user',
+        'user.userId = :userId',
+        { userId },
+      )
+      .getOne();
   }
 
   async saveProgressOnPiece(
@@ -28,7 +37,11 @@ export class PieceService {
     pieceId: string,
     userId: string,
   ): Promise<boolean> {
-    return this.pieceRepository.addOrEditPieceProgress(saveProgressDto, pieceId, userId);
+    return this.pieceRepository.addOrEditPieceProgress(
+      saveProgressDto,
+      pieceId,
+      userId,
+    );
   }
 
   async ratePiece(
