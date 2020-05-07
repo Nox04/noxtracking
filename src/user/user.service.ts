@@ -7,7 +7,6 @@ import { CollectionService } from '../collection/collection.service';
 import { Collection } from '../collection/collection.entity';
 import { getPiecesIdsFromCollection } from '../utils/collections.util';
 import { UserCollectionsDto } from './dto/user-collections.dto';
-import uniqBy from 'lodash-es/uniqBy';
 
 @Injectable()
 export class UserService {
@@ -38,7 +37,13 @@ export class UserService {
       collections = [...collections, ...relation.piece.collections];
     });
 
-    relatedPieces.collections = uniqBy(collections, 'id');
+    // Remove duplicates
+    relatedPieces.collections = collections.filter(
+      (elem, index, self) =>
+        self.findIndex(t => {
+          return t.x === elem.x && t.y === elem.y;
+        }) === index,
+    );
 
     return relatedPieces;
   }
