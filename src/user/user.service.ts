@@ -6,6 +6,7 @@ import { AuthProvider } from '../common/enums';
 import { CollectionService } from '../collection/collection.service';
 import { Collection } from '../collection/collection.entity';
 import { getPiecesIdsFromCollection } from '../utils/collections.util';
+import { UserCollectionsDto } from './dto/user-collections.dto';
 
 @Injectable()
 export class UserService {
@@ -19,14 +20,26 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOne(id: string): Promise<User> {
-    return this.userRepository.findOne(id, {
-      relations: [
-        'userToPieces',
-        'userToPieces.piece',
-        'userToPieces.piece.collections',
-      ],
+  async findOne(id: string): Promise<UserCollectionsDto> {
+    const relatedPieces: UserCollectionsDto = await this.userRepository.findOne(
+      id,
+      {
+        relations: [
+          'userToPieces',
+          'userToPieces.piece',
+          'userToPieces.piece.collections',
+        ],
+      },
+    );
+
+    let collections = [];
+    relatedPieces.userToPieces.forEach(relation => {
+      collections = [...collections, ...relation.piece.collections];
     });
+
+    relatedPieces.collections = collections;
+
+    return relatedPieces;
   }
 
   async getCollectionStatus(

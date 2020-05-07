@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
+import { UserCollectionsDto } from './dto/user-collections.dto';
 
 @Controller('user')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -20,7 +21,9 @@ export class UserController {
   }
 
   @Get('/:id')
-  getUserById(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
+  getUserById(
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<UserCollectionsDto> {
     return this.userService.findOne(id);
   }
 
