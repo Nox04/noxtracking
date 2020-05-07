@@ -28,6 +28,8 @@ export class UserService {
           'userToPieces',
           'userToPieces.piece',
           'userToPieces.piece.collections',
+          'userToPieces.piece.collections.collections',
+          'userToPieces.piece.collections.pieces',
         ],
       },
     );
