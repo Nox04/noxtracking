@@ -29,6 +29,7 @@ export class UserService {
           'userToPieces.piece',
           'userToPieces.piece.collections',
           'userToPieces.piece.collections.collections',
+          'userToPieces.piece.collections.collections.pieces',
           'userToPieces.piece.collections.pieces',
         ],
       },
