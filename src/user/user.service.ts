@@ -32,18 +32,18 @@ export class UserService {
       },
     );
 
-    let collections = [];
+    let collections: Collection[] = [];
     relatedPieces.userToPieces.forEach(relation => {
       collections = [...collections, ...relation.piece.collections];
     });
 
     // Remove duplicates
-    relatedPieces.collections = collections.filter(
-      (elem, index, self) =>
-        self.findIndex(t => {
-          return t.x === elem.x && t.y === elem.y;
-        }) === index,
-    );
+    const seen = new Set();
+    relatedPieces.collections = collections.filter(el => {
+      const duplicate = seen.has(el.id);
+      seen.add(el.id);
+      return !duplicate;
+    });
 
     return relatedPieces;
   }
