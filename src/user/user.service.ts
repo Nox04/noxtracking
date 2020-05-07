@@ -7,6 +7,7 @@ import { CollectionService } from '../collection/collection.service';
 import { Collection } from '../collection/collection.entity';
 import { getPiecesIdsFromCollection } from '../utils/collections.util';
 import { UserCollectionsDto } from './dto/user-collections.dto';
+import uniqBy from 'lodash/uniqBy';
 
 @Injectable()
 export class UserService {
@@ -37,7 +38,9 @@ export class UserService {
       collections = [...collections, ...relation.piece.collections];
     });
 
-    relatedPieces.collections = collections;
+    relatedPieces.collections = uniqBy(collections, collection => {
+      return collection.id;
+    });
 
     return relatedPieces;
   }
